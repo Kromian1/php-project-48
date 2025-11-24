@@ -1,0 +1,11 @@
+{
+    "name": "hexlet/code",
+    "description": "Вычислитель отличий",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Михаил Кузнецов"
+        }
+    ],
+    "require": {}
+}
