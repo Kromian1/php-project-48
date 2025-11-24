@@ -2,6 +2,11 @@
     "name": "hexlet/code",
     "description": "Вычислитель отличий",
     "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gendiff\\": "src/"
+        }
+    },
     "type": "project",
     "authors": [
         {

@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use Gendiff\Parser;
+
 $autoloadPath1 = __DIR__ . '/../vendor/autoload.php';
 $autoloadPath2 = __DIR__ . '/../../autoload.php';
 
@@ -29,3 +31,19 @@ DOC;
 
 $options = ['version' => 'gendiff 1.0.0'];
 $result = Docopt::handle($doc, $options);
+
+if (isset($result['firstFile']) && isset($result['secondFile'])) {
+  $pathFile1 = $result['firstFile'];
+  $pathFile2 = $result['secondFile'];
+  $format = $result['--format'];
+}
+
+if (!file_exists($pathFile1)) {
+  fw_write(STDERR, "$file1 is not found. Please check path or file.\n");
+  exit(1);
+}
+if (!file_exists($pathFile2)) {
+  fw_write(STDERR, "$file2 is not found. Please check path or file.\n");
+  exit(1);
+}
+
