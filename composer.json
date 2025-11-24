@@ -7,5 +7,7 @@
             "name": "Михаил Кузнецов"
         }
     ],
-    "require": {}
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
 }
