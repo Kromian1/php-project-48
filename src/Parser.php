@@ -2,7 +2,9 @@
 
 namespace Gendiff;
 
-class Parser
+use Gendiff\Contracts\ParserInterface;
+
+class Parser implements ParserInterface
 {
     
     public function parse(string $pathFile): mixed
