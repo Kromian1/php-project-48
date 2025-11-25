@@ -7,7 +7,7 @@
             "Gendiff\\": "src/"
         }
     },
-    "type": "project",
+    "type": "library",
     "authors": [
         {
             "name": "Михаил Кузнецов"
