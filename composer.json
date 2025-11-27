@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "Gendiff\\": "src/"
-        }
+        },
+        "files": [
+            "scr/functions.php"
+        ]
     },
     "type": "library",
     "authors": [

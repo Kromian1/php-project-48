@@ -2,6 +2,7 @@
 <?php
 
 use Gendiff\Parser;
+use Gendiff\Differ;
 
 $autoloadPath1 = __DIR__ . '/../vendor/autoload.php';
 $autoloadPath2 = __DIR__ . '/../../autoload.php';
@@ -32,8 +33,6 @@ DOC;
 $options = ['version' => 'gendiff 1.0.0'];
 $result = Docopt::handle($doc, $options);
 
-var_dump($result);
-
 if (isset($result['<firstFile>']) && isset($result['<secondFile>'])) {
   $pathFile1 = $result['<firstFile>'];
   $pathFile2 = $result['<secondFile>'];
@@ -53,6 +52,5 @@ $parser = new Parser;
 $dataFile1 = $parser->parse($pathFile1);
 $dataFile2 = $parser->parse($pathFile2);
 
-print_r($dataFile1);
-PHP_EOL;
-print_r($dataFile2);
+$differ = new Differ;
+echo $differ->compare($dataFile1, $dataFile2);
