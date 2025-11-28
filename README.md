@@ -4,4 +4,4 @@
 
 ## Пример использования утилиты (Asciinema):
 
-**Сравнение JSON**: [![asciicast](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.svg)](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ)
+**Сравнение JSON**: <script src="https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.js" id="asciicast-ifijK7SbAiWPhu2gpl1ZRrvbZ" async="true"></script>
