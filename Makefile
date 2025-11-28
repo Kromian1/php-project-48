@@ -1,2 +1,2 @@
 gendiff:
-	./bin/gendiff.php
+	./bin/gendif
