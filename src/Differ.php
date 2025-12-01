@@ -3,6 +3,7 @@
 namespace Gendiff;
 
 use Gendiff\Contracts\DifferInterface;
+
 use function Funct\Collection\sortBy;
 
 class Differ implements DifferInterface
@@ -15,7 +16,6 @@ class Differ implements DifferInterface
         $arrayFile2 = get_object_vars($File2);
 
         $allKeys = array_unique(array_keys(array_merge($arrayFile2, $arrayFile1)));
-        
         $sortedKeys = sortBy($allKeys, fn($key) => $key);
 
         $comparedFiles = [];
@@ -60,10 +60,10 @@ class Differ implements DifferInterface
 
     private function formatValue($value): string
     {
-       return match (true) {
-        is_bool($value) => $value ? 'true' : 'false',
-        is_null($value) => 'null',
-        default => $value
-       }; 
+        return match (true) {
+            is_bool($value) => $value ? 'true' : 'false',
+            is_null($value) => 'null',
+            default => $value
+        };
     }
 }
