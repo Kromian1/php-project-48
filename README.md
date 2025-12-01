@@ -1,5 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Kromian1/php-project-48/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Kromian1/php-project-48/actions)
+[![check-project.yml](https://github.com/Kromian1/php-project-48/actions/workflows/check-project.yml/badge.svg)](https://github.com/Kromian1/php-project-48/actions/workflows/check-project.yml)
 
 
 ## Пример использования утилиты (Asciinema):
