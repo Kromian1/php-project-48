@@ -13,7 +13,7 @@ class Parser implements ParserInterface
 
         return match ($extension) {
             'json' => json_decode($content, false),
-            default => throw new \Exception("Unknown extension\n")
+            default => throw new \UnknownExtensionException("Unknown extension\n")
         };
     }
 }
