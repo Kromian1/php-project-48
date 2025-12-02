@@ -9,10 +9,11 @@ use Gendiff\Parser;
 class ParserTest extends TestCase
 {
     #[DataProvider('parseProvider')]
-    public function testMainFlow(string $pathFile, array $expectedResult): void
+    public function testMainFlow(string $pathFile): void
     {
         $parser = new Parser();
         $actual = $parser->parse($pathFile);
+        $expectedResult = json_decode(file_get_contents($pathFile));
 
         $this->assertEquals($expectedResult, $actual);
     }
@@ -54,27 +55,9 @@ class ParserTest extends TestCase
 
         $fixturesDir = __DIR__ . "/fixtures/";
 
-        $expectedFile1 = [
-            "host" => "hexlet.io",
-            "timeout" => 50,
-            "proxy" => "123.234.53.22",
-            "follow" => false
-        ];
-        $expectedFile2 = [
-            "timeout" => 20,
-            "verbose" => true,
-            "host" => "hexlet.io"
-        ];
-
         return [
-            'Parse file1.json' => [
-                $fixturesDir . "file1.json",
-                $expectedFile1
-            ],
-            'Parse file2.json' => [
-                $fixturesDir . "file2.json",
-                $expectedFile2
-            ]
+            'Parse file1.json' => [$fixturesDir . "file1.json"],
+            'Parse file2.json' => [$fixturesDir . "file2.json"]
         ];
     }
 }
