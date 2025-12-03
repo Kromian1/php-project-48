@@ -8,7 +8,6 @@ use Gendiff\Differ;
 use Gendiff\Parser;
 
 use function Funct\Collection\sortBy;
-use function Sodium\compare;
 
 class DifferTest extends TestCase
 {
