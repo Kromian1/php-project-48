@@ -10,7 +10,7 @@ class Differ implements DifferInterface
 {
     private array $comparedFiles = [];
 
-    public function compare($File1, $File2)
+    public function compare(object $File1, object $File2)
     {
         $arrayFile1 = get_object_vars($File1);
         $arrayFile2 = get_object_vars($File2);
