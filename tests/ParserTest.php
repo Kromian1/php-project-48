@@ -8,6 +8,8 @@ use Gendiff\Parser;
 
 class ParserTest extends TestCase
 {
+
+    private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('parseProvider')]
     public function testMainFlow(string $pathFile): void
     {
@@ -52,12 +54,9 @@ class ParserTest extends TestCase
 
     public static function parseProvider(): array
     {
-
-        $fixturesDir = __DIR__ . "/fixtures/";
-
         return [
-            'Parse file1.json' => [$fixturesDir . "file1.json"],
-            'Parse file2.json' => [$fixturesDir . "file2.json"]
+            'Parse file1.json' => [self::FIXTURESDIR . "file1.json"],
+            'Parse file2.json' => [self::FIXTURESDIR . "file2.json"]
         ];
     }
 }
