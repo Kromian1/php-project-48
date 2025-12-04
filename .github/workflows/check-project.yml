@@ -19,7 +19,7 @@ jobs:
       - name: linter
         run: make lint
       - name: Run tests
-        run: make test-coverage
+        run: test-coverage-clover
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
