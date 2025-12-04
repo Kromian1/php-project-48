@@ -10,7 +10,7 @@ class ParserTest extends TestCase
 {
 
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
-    #[DataProvider('parseProvider')]
+    #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile): void
     {
         $parser = new Parser();
@@ -52,7 +52,7 @@ class ParserTest extends TestCase
         }
     }
 
-    public static function parseProvider(): array
+    public static function mainFlowProvider(): array
     {
         return [
             'Parse file1.json' => [self::FIXTURESDIR . "file1.json"],

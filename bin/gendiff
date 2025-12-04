@@ -54,5 +54,10 @@ $parser = new Parser;
 $dataFile1 = $parser->parse($pathFile1);
 $dataFile2 = $parser->parse($pathFile2);
 
+print_r($dataFile1);
+echo PHP_EOL;
+print_r($dataFile2);
+echo PHP_EOL;
+
 $differ = new Differ;
 echo $differ->compare($dataFile1, $dataFile2);
