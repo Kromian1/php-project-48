@@ -3,6 +3,7 @@
 namespace Gendiff;
 
 use Gendiff\Contracts\ParserInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class Parser implements ParserInterface
 {
@@ -13,6 +14,7 @@ class Parser implements ParserInterface
 
         return match ($extension) {
             'json' => json_decode($content, false),
+            'yml', 'yaml' => Yaml::parseFile($pathFile, Yaml::PARSE_OBJECT_FOR_MAP),
             default => throw new \InvalidArgumentException("Unknown extension\n")
         };
     }
