@@ -8,10 +8,10 @@ use Gendiff\Differ;
 function genDiff(string $pathToFile1, string $pathToFile2): string
 {
     if (!file_exists($pathToFile1)) {
-        throw new \RuntimeException("$pathToFile1 is not found");
+        throw new \InvalidArgumentException("$pathToFile1 is not found");
     }
     if (!file_exists($pathToFile2)) {
-        throw new \RuntimeException("$pathToFile2 is not found");
+        throw new \InvalidArgumentException("$pathToFile2 is not found");
     }
 
     $parser = new Parser();

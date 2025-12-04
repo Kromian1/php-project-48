@@ -23,7 +23,7 @@ class functionsTest extends TestCase
         $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');
         $nonExistingFile = sys_get_temp_dir() . '/non_existing_' . uniqid() . '.json';
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\InvalidArgumentException::class);
         gendiff($nonExistingFile, $tempFile);
 
         if (file_exists($tempFile)) {
