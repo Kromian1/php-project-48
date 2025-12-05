@@ -85,7 +85,7 @@ EXPECTED;
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCompareNonEmptyJsonVsEmptyJson(): void
+    public function testCompareNonEmptyFileVsEmptyFile(): void
     {
         $emptyJson = $this->createEmptyFile('json');
 
@@ -107,7 +107,7 @@ EXPECTED;
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCompareEmptyJsons(): void
+    public function testCompareEmptyFiles(): void
     {
         $emptyJson1 = $this->createEmptyFile('json');
         $emptyJson2 = $this->createEmptyFile('json');

@@ -3,6 +3,7 @@
 namespace Gendiff;
 
 use Gendiff\Contracts\DifferInterface;
+use Illuminate\Support\Collection;
 
 use function Funct\Collection\sortBy;
 
