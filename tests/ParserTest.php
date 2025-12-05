@@ -11,13 +11,12 @@ class ParserTest extends TestCase
 
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
-    public function testMainFlow(string $pathFile): void
+    public function testMainFlow(string $pathFile, object $expected): void
     {
         $parser = new Parser();
         $actual = $parser->parse($pathFile);
-        $expectedResult = json_decode(file_get_contents($pathFile));
 
-        $this->assertEquals($expectedResult, $actual);
+        $this->assertEquals($expected, $actual);
     }
     public function testEmptyExtension(): void
     {
@@ -54,9 +53,24 @@ class ParserTest extends TestCase
 
     public static function mainFlowProvider(): array
     {
+        $expectedParseFile1 = new \stdClass();
+        $expectedParseFile1->host = 'hexlet.io';
+        $expectedParseFile1->timeout = 50;
+        $expectedParseFile1->proxy = '123.234.53.22';
+        $expectedParseFile1->follow = false;
+
+        $expectedParseFile2 = new \stdClass();
+        $expectedParseFile2->timeout = 20;
+        $expectedParseFile2->verbose = true;
+        $expectedParseFile2->host = 'hexlet.io';
+
+
+
         return [
-            'Parse file1.json' => [self::FIXTURESDIR . "file1.json"],
-            'Parse file2.json' => [self::FIXTURESDIR . "file2.json"]
+            'Parse file1.json' => [self::FIXTURESDIR . "file1.json", $expectedParseFile1],
+            'Parse file2.json' => [self::FIXTURESDIR . "file2.json", $expectedParseFile2],
+            'Parse file3.yml' => [self::FIXTURESDIR . "file3.yml", $expectedParseFile1],
+            'Parse file4.yaml' => [self::FIXTURESDIR . "file4.yaml", $expectedParseFile2],
         ];
     }
 }
