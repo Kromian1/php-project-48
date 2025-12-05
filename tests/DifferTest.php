@@ -26,10 +26,12 @@ class DifferTest extends TestCase
     public static function mainFlowProvider(): array
     {
         $parser = new Parser();
-        $dataFile1 = $parser->parse(self::FIXTURESDIR . "file1.json");
-        $dataFile2 = $parser->parse(self::FIXTURESDIR . "file2.json");
+        $dataFile1Json = $parser->parse(self::FIXTURESDIR . "file1.json");
+        $dataFile2Json = $parser->parse(self::FIXTURESDIR . "file2.json");
+        $dataFile3Yml = $parser->parse(self::FIXTURESDIR . "file3.yml");
+        $dataFile4Yaml = $parser->parse(self::FIXTURESDIR . "file4.yaml");
 
-        $expected = <<<EXPECTED
+        $expectedDifferent = <<<EXPECTED
 {
   - follow: false
     host: hexlet.io
@@ -41,14 +43,28 @@ class DifferTest extends TestCase
 
 EXPECTED;
 
+        $expectedSame = <<<EXPECTED
+{
+    host: hexlet.io
+    timeout: 20
+    verbose: true
+}
+
+EXPECTED;
+
         return [
-            'Parsed and compared files' => [$dataFile1, $dataFile2, $expected]
+            'Parsed and compared different files JSON' => [$dataFile1Json, $dataFile2Json, $expectedDifferent],
+            'Parsed and compared different files YML' => [$dataFile3Yml, $dataFile4Yaml, $expectedDifferent],
+            'Parsed and compared different files JSON and YML' => [$dataFile1Json, $dataFile4Yaml, $expectedDifferent],
+            'Parsed and compared same files JSON' => [$dataFile2Json, $dataFile2Json, $expectedSame],
+            'Parsed and compared same files YML' => [$dataFile4Yaml, $dataFile4Yaml, $expectedSame],
+            'Parsed and compared same files JSON and YML' => [$dataFile2Json, $dataFile4Yaml, $expectedSame]
         ];
     }
 
-    public function testCompareEmptyJsonVsNonEmptyJson(): void
+    public function testCompareEmptyFileVsNonEmptyFile(): void
     {
-        $emptyJson = $this->createEmptyJsonFile();
+        $emptyJson = $this->createEmptyFile('json');
 
         $parser = new Parser();
         $parsedNonEmptyJson = $parser->parse(self::FIXTURESDIR . "file1.json");
@@ -56,6 +72,7 @@ EXPECTED;
 
         $differ = new Differ();
         $actual = $differ->compare($parsedEmptyJson, $parsedNonEmptyJson)->__toString();
+
         $expected = <<<EXPECTED
 {
   + follow: false
@@ -70,7 +87,7 @@ EXPECTED;
 
     public function testCompareNonEmptyJsonVsEmptyJson(): void
     {
-        $emptyJson = $this->createEmptyJsonFile();
+        $emptyJson = $this->createEmptyFile('json');
 
         $parser = new Parser();
         $parsedNonEmptyJson = $parser->parse(self::FIXTURESDIR . "file1.json");
@@ -92,8 +109,8 @@ EXPECTED;
 
     public function testCompareEmptyJsons(): void
     {
-        $emptyJson1 = $this->createEmptyJsonFile();
-        $emptyJson2 = $this->createEmptyJsonFile();
+        $emptyJson1 = $this->createEmptyFile('json');
+        $emptyJson2 = $this->createEmptyFile('json');
 
         $parser = new Parser();
         $parsedEmptyJson1 = $parser->parse($emptyJson1);
@@ -109,12 +126,18 @@ EXPECTED;
         unlink($emptyJson1);
         unlink($emptyJson2);
     }
-    private function createEmptyJsonFile(): string
+    private function createEmptyFile(string $extension): string
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');
-        $emptyJson = $tempFile . '.json';
-        rename($tempFile, $emptyJson);
-        file_put_contents($emptyJson, '{}');
-        return $emptyJson;
+
+        match ($extension) {
+            'json' => $emptyFile = $tempFile . '.json',
+            'yaml', 'yml' => $emptyFile = $tempFile . "{$extension}",
+            default => throw new \InvalidArgumentException("Unknown extension\n")
+        };
+
+        rename($tempFile, $emptyFile);
+        file_put_contents($emptyFile, '{}');
+        return $emptyFile;
     }
 }
