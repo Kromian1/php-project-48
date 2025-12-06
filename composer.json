@@ -19,7 +19,6 @@
     "require": {
         "php": "^8.4",
         "docopt/docopt": "^1.0",
-        "funct/funct": "^1.6",
         "symfony/yaml": "^8.0",
         "illuminate/collections": "^12.41"
     },

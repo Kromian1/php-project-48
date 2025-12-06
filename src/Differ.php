@@ -5,8 +5,6 @@ namespace Gendiff;
 use Gendiff\Contracts\DifferInterface;
 use Illuminate\Support\Collection;
 
-use function Funct\Collection\sortBy;
-
 class Differ implements DifferInterface
 {
     private array $comparedFiles = [];
@@ -17,7 +15,7 @@ class Differ implements DifferInterface
         $arrayFile2 = get_object_vars($File2);
 
         $allKeys = array_unique(array_keys(array_merge($arrayFile2, $arrayFile1)));
-        $sortedKeys = sortBy($allKeys, fn($key) => $key);
+        $sortedKeys = (new collection($allKeys))->sortBy(fn($key) => $key)->values()->all();
 
         $comparedFiles = [];
         foreach ($sortedKeys as $key) {
