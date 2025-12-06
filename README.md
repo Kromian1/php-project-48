@@ -13,5 +13,6 @@
 
 ## Пример использования утилиты (Asciinema):
 
-**Сравнение JSON**: https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ
-**Сравнение YAML**: https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte
+**Сравнение JSON**: [![asciicast](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.svg)](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ)
+
+**Сравнение YAML**: [![asciicast](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte.svg)](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte)
