@@ -18,7 +18,7 @@ class DifferTest extends TestCase
     public function testMainFlow(object $dataFile1, object $dataFile2, string $expected): void
     {
         $differ = new Differ();
-        $actual = $differ->compare($dataFile1, $dataFile2)->__toString();
+        $actual = $differ->compare($dataFile1, $dataFile2);
 
         $this->assertEquals($expected, $actual);
     }
@@ -71,7 +71,7 @@ EXPECTED;
         $parsedEmptyJson = $parser->parse($emptyJson);
 
         $differ = new Differ();
-        $actual = $differ->compare($parsedEmptyJson, $parsedNonEmptyJson)->__toString();
+        $actual = $differ->compare($parsedEmptyJson, $parsedNonEmptyJson);
 
         $expected = <<<EXPECTED
 {
@@ -94,7 +94,7 @@ EXPECTED;
         $parsedEmptyJson = $parser->parse($emptyJson);
 
         $differ = new Differ();
-        $actual = $differ->compare($parsedNonEmptyJson, $parsedEmptyJson)->__toString();
+        $actual = $differ->compare($parsedNonEmptyJson, $parsedEmptyJson);
         $expected = <<<EXPECTED
 {
   - follow: false
@@ -118,7 +118,7 @@ EXPECTED;
 
         $differ = new Differ();
 
-        $actual = $differ->compare($parsedEmptyJson1, $parsedEmptyJson2)->__toString();
+        $actual = $differ->compare($parsedEmptyJson1, $parsedEmptyJson2);
         $expected = "{\n\n}\n";
 
         $this->assertEquals($expected, $actual);

@@ -19,5 +19,5 @@ function genDiff(string $pathToFile1, string $pathToFile2): string
     $dataFile2 = $parser->parse($pathToFile2);
 
     $differ = new Differ();
-    return $differ->compare($dataFile1, $dataFile2)->__toString();
+    return $differ->compare($dataFile1, $dataFile2);
 }
