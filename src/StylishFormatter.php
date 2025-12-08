@@ -13,7 +13,7 @@ class StylishFormatter implements FormatterInterface
             $comparedFiles
         );
 
-        return "{\n" . implode("\n", $lines) . "\n}";
+        return "{\n" . implode("\n", $lines) . "\n}\n";
     }
 
     private function formatNode(array $node, int $depth = 1): string

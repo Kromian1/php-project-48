@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-error_reporting(E_ALL ^ E_DEPRECATED);
 
 use Gendiff\Parser;
 use Gendiff\Differ;
