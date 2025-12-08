@@ -3,41 +3,78 @@
 namespace Gendiff;
 
 use Gendiff\Contracts\DifferInterface;
+use Gendiff\StylishFormatter;
 use Illuminate\Support\Collection;
 
 class Differ implements DifferInterface
 {
     private array $comparedFiles = [];
 
-    public function compare(object $File1, object $File2)
+    public function compare(object $file1, object $file2, $formatter = null): string
     {
-        $arrayFile1 = get_object_vars($File1);
-        $arrayFile2 = get_object_vars($File2);
+        $comparedFiles = $this->buildDiff($file1, $file2);
+
+        if ($formatter === null) {
+            $formatter = new StylishFormatter();
+        }
+
+        return $formatter->format($comparedFiles);
+    }
+
+    public function buildDiff(object $file1, object $file2): array
+    {
+        $arrayFile1 = get_object_vars($file1);
+        $arrayFile2 = get_object_vars($file2);
 
         $allKeys = array_unique(array_keys(array_merge($arrayFile2, $arrayFile1)));
         $sortedKeys = (new collection($allKeys))->sortBy(fn($key) => $key)->values()->all();
 
         $comparedFiles = [];
         foreach ($sortedKeys as $key) {
-            if (array_key_exists($key, $arrayFile1) && !array_key_exists($key, $arrayFile2)) {
-                $comparedFiles[] = ['prefix' => '-', 'key' => $key, 'value' => $arrayFile1[$key]];
-            }
+            $hashIn1 = array_key_exists($key, $arrayFile1);
+            $hashIn2 = array_key_exists($key, $arrayFile2);
 
-            if (array_key_exists($key, $arrayFile1) && array_key_exists($key, $arrayFile2)) {
-                if ($arrayFile1[$key] === $arrayFile2[$key]) {
-                    $comparedFiles[] = ['prefix' => '', 'key' => $key, 'value' => $arrayFile1[$key]];
+            if ($hashIn1 && $hashIn2) {
+                $value1 = $arrayFile1[$key];
+                $value2 = $arrayFile2[$key];
+
+                if ($value1 === $value2) {
+                    $comparedFiles[] = [
+                        'key' => $key,
+                        'type' => 'unchanged',
+                        'value' => $value1
+                    ];
+                } elseif (is_object($value1) && is_object($value2)) {
+                    $children = $this->buildDiff($value1, $value2);
+                    $comparedFiles[] = [
+                        'key' => $key,
+                        'type' => 'nested',
+                        'children' => $children
+                    ];
                 } else {
-                    $comparedFiles[] = ['prefix' => '-', 'key' => $key, 'value' => $arrayFile1[$key]];
-                    $comparedFiles[] = ['prefix' => '+', 'key' => $key, 'value' => $arrayFile2[$key]];
+                    $comparedFiles[] = [
+                        'key' => $key,
+                        'type' => 'changed',
+                        'oldValue' => $value1,
+                        'newValue' => $value2
+                    ];
                 }
-            }
-
-            if (!array_key_exists($key, $arrayFile1) && array_key_exists($key, $arrayFile2)) {
-                $comparedFiles[] = ['prefix' => '+', 'key' => $key, 'value' => $arrayFile2[$key]];
+            } elseif ($hashIn1) {
+                $comparedFiles[] = [
+                    'key' => $key,
+                    'type' => 'removed',
+                    'value' => $arrayFile1[$key]
+                ];
+            } elseif ($hashIn2) {
+                $comparedFiles[] = [
+                    'key' => $key,
+                    'type' => 'added',
+                    'value' => $arrayFile2[$key]
+                ];
             }
         }
         $this->comparedFiles = $comparedFiles;
-        return $this;
+        return $comparedFiles;
     }
 
     public function __toString(): string
