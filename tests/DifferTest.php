@@ -28,8 +28,8 @@ class DifferTest extends TestCase
         $parser = new Parser();
         $dataFile1Json = $parser->parse(self::FIXTURESDIR . "file1.json");
         $dataFile2Json = $parser->parse(self::FIXTURESDIR . "file2.json");
-        $dataFile3Yml = $parser->parse(self::FIXTURESDIR . "file3.yml");
-        $dataFile4Yaml = $parser->parse(self::FIXTURESDIR . "file4.yaml");
+        $dataFile1Yml = $parser->parse(self::FIXTURESDIR . "file1.yml");
+        $dataFile2Yaml = $parser->parse(self::FIXTURESDIR . "file2.yaml");
 
         $expectedDifferent = <<<EXPECTED
 {
@@ -54,11 +54,11 @@ EXPECTED;
 
         return [
             'Parsed and compared different files JSON' => [$dataFile1Json, $dataFile2Json, $expectedDifferent],
-            'Parsed and compared different files YML' => [$dataFile3Yml, $dataFile4Yaml, $expectedDifferent],
-            'Parsed and compared different files JSON and YML' => [$dataFile1Json, $dataFile4Yaml, $expectedDifferent],
+            'Parsed and compared different files YML' => [$dataFile1Yml, $dataFile2Yaml, $expectedDifferent],
+            'Parsed and compared different files JSON and YML' => [$dataFile1Json, $dataFile2Yaml, $expectedDifferent],
             'Parsed and compared same files JSON' => [$dataFile2Json, $dataFile2Json, $expectedSame],
-            'Parsed and compared same files YML' => [$dataFile4Yaml, $dataFile4Yaml, $expectedSame],
-            'Parsed and compared same files JSON and YML' => [$dataFile2Json, $dataFile4Yaml, $expectedSame]
+            'Parsed and compared same files YML' => [$dataFile2Yaml, $dataFile2Yaml, $expectedSame],
+            'Parsed and compared same files JSON and YML' => [$dataFile2Json, $dataFile2Yaml, $expectedSame]
         ];
     }
 

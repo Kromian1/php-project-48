@@ -69,8 +69,8 @@ class ParserTest extends TestCase
         return [
             'Parse file1.json' => [self::FIXTURESDIR . "file1.json", $expectedParseFile1],
             'Parse file2.json' => [self::FIXTURESDIR . "file2.json", $expectedParseFile2],
-            'Parse file3.yml' => [self::FIXTURESDIR . "file3.yml", $expectedParseFile1],
-            'Parse file4.yaml' => [self::FIXTURESDIR . "file4.yaml", $expectedParseFile2],
+            'Parse file1.yml' => [self::FIXTURESDIR . "file1.yml", $expectedParseFile1],
+            'Parse file2.yaml' => [self::FIXTURESDIR . "file2.yaml", $expectedParseFile2],
         ];
     }
 }
