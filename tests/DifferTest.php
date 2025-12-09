@@ -62,6 +62,40 @@ EXPECTED;
         ];
     }
 
+    #[DataProvider('buildDiffProvider')]
+    public function testBuildDiff(object $dataFile1, object $dataFile2, array $expected): void
+    {
+        $differ = new Differ();
+        $actual = $differ->buildDiff($dataFile1, $dataFile2);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public static function buildDiffProvider(): array
+    {
+        return [
+            'unchanged' => [
+                (object) ['a' => 1],
+                (object) ['a' => 1],
+                [['key' => 'a', 'type' => 'unchanged', 'value' => 1]]
+            ],
+            'added' => [
+                (object) [],
+                (object) ['a' => 1],
+                [['key' => 'a', 'type' => 'added', 'value' => 1]]
+            ],
+            'removed' => [
+                (object) ['a' => 1],
+                (object) [],
+                [['key' => 'a', 'type' => 'removed', 'value' => 1]]
+            ],
+            'changed' => [
+                (object) ['a' => 1],
+                (object) ['a' => 2],
+                [['key' => 'a', 'type' => 'changed', 'oldValue' => 1, 'newValue' => 2]]
+            ]
+        ];
+    }
+
     public function testCompareEmptyFileVsNonEmptyFile(): void
     {
         $emptyJson = $this->createEmptyFile('json');

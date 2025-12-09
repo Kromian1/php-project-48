@@ -76,30 +76,4 @@ class Differ implements DifferInterface
         $this->comparedFiles = $comparedFiles;
         return $comparedFiles;
     }
-
-    /*public function __toString(): string
-    {
-        $lines = [];
-
-        foreach ($this->comparedFiles as $line) {
-            $prefix = $line['prefix'];
-            $key = $line['key'];
-            $value = $line['value'];
-
-            $formatedValue = $this->formatValue($value);
-            $spacer = $prefix ? '  ' : '   ';
-            $lines[] = "{$spacer}{$prefix} {$key}: {$formatedValue}";
-        }
-
-        return "{\n" . implode("\n", $lines) . "\n}\n";
-    }*/
-
-    private function formatValue($value): string
-    {
-        return match (true) {
-            is_bool($value) => $value ? 'true' : 'false',
-            is_null($value) => 'null',
-            default => $value
-        };
-    }
 }
