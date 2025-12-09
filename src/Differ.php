@@ -77,7 +77,7 @@ class Differ implements DifferInterface
         return $comparedFiles;
     }
 
-    public function __toString(): string
+    /*public function __toString(): string
     {
         $lines = [];
 
@@ -92,7 +92,7 @@ class Differ implements DifferInterface
         }
 
         return "{\n" . implode("\n", $lines) . "\n}\n";
-    }
+    }*/
 
     private function formatValue($value): string
     {
