@@ -53,13 +53,13 @@ class StylishFormatter implements FormatterInterface
     private function formatChanged(array $node, int $depth): string
     {
         $oldLine = $this->formatSimple([
-            'key' =>$node['key'],
+            'key' => $node['key'],
             'type' => 'removed',
             'value' => $node['oldValue']
             ], $depth, 'removed');
 
         $newLine = $this->formatSimple([
-            'key' =>$node['key'],
+            'key' => $node['key'],
             'type' => 'added',
             'value' => $node['newValue']
         ], $depth, 'added');

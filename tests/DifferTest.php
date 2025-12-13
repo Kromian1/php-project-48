@@ -7,8 +7,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Gendiff\Differ;
 use Gendiff\Parser;
 
-use function Funct\Collection\sortBy;
-
 class DifferTest extends TestCase
 {
 
@@ -139,6 +137,41 @@ EXPECTED;
 
 EXPECTED;
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testBuildDiffSortKeys(): void
+    {
+        $differ = new differ();
+
+        $object1 = (object) ['z' => 1, 'a' => 2, 'm' => 3];
+        $object2 = (object) ['z' => 1, 'a' => 2, 'm' => 3];
+
+        $diff = $differ->buildDiff($object1, $object2);
+
+        $keys = array_column($diff, 'key');
+        $this->assertEquals(['a', 'm', 'z'], $keys);
+    }
+
+    public function testBuildDiffNested(): void
+    {
+    $differ = new Differ();
+    
+    $obj1 = json_decode('{"nested": {"inner": "old"}}');
+    $obj2 = json_decode('{"nested": {"inner": "new"}}');
+    
+    $diff = $differ->buildDiff($obj1, $obj2);
+    
+    $expected = [
+        [
+            'key' => 'nested',
+            'type' => 'nested',
+            'children' => [
+                ['key' => 'inner', 'type' => 'changed', 'oldValue' => 'old', 'newValue' => 'new']
+            ]
+        ]
+    ];
+    
+    $this->assertEquals($expected, $diff);
     }
 
     public function testCompareEmptyFiles(): void
