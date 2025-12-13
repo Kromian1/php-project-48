@@ -16,3 +16,5 @@
 **Сравнение JSON**: [![asciicast](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.svg)](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ)
 
 **Сравнение YAML**: [![asciicast](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte.svg)](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte)
+
+**Сравнение с вложенными структурами**: [![asciicast](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt.svg)](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt)
