@@ -19,4 +19,4 @@
 
 **Сравнение с вложенными структурами**: [![asciicast](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt.svg)](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt)
 
-**Сравнение с явным выбором формата вывода**: [![asciicast](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di.svg)](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di)
+**Сравнение с явным выбором формата вывода stylish и plain**: [![asciicast](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di.svg)](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di)
