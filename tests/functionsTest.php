@@ -11,11 +11,15 @@ class functionsTest extends TestCase
 {
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
-    public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedDifferJsons): void
+    public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedStylish, string $expectedPlain): void
     {
-        $actual = genDiff($pathFile1, $pathFile2);
+        $actualStylish = genDiff($pathFile1, $pathFile2, 'stylish');
+        $actualPlain = genDiff($pathFile1, $pathFile2, 'plain');
+        $actualDefault = genDiff($pathFile1, $pathFile2);
 
-        $this->assertEquals($expectedDifferJsons, $actual);
+        $this->assertEquals($expectedStylish, $actualStylish);
+        $this->assertEquals($actualPlain, $actualPlain);
+        $this->assertEquals($actualDefault, $actualStylish);
     }
 
     public function testGendiffWithNotExistingFile(): void
@@ -32,7 +36,7 @@ class functionsTest extends TestCase
     }
     public static function mainFlowProvider(): array
     {
-        $expectedDifferJsons = <<<EXPECTED
+        $expectedStylish = <<<EXPECTED
 {
   - follow: false
     host: hexlet.io
@@ -44,11 +48,19 @@ class functionsTest extends TestCase
 
 EXPECTED;
 
+    $expectedPlain = <<<PLAIN
+    Property 'follow' was removed
+    Property 'proxy' was removed
+    Property 'timeout' was updated. From 50 to 20
+    Property 'verbose' was added with value: true
+    PLAIN;
+
         return [
             'Paths to files JSON' => [
                 self::FIXTURESDIR . "file1.json",
                 self::FIXTURESDIR . "file2.json",
-                $expectedDifferJsons
+                $expectedStylish,
+                $expectedPlain
             ]
         ];
     }

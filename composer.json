@@ -7,7 +7,8 @@
             "Gendiff\\": "src/"
         },
         "files": [
-            "src/functions.php"
+            "src/functions.php",
+            "src/Formatters/Formatter.php"
         ]
     },
     "type": "library",

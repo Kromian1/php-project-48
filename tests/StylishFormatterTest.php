@@ -4,15 +4,15 @@ namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Gendiff\StylishFormatter;
+use Gendiff\Formatters\Stylish;
 
 class StylishFormatterTest extends TestCase
 {
-    private StylishFormatter $formatter;
+    private Stylish $formatter;
 
     protected function setUp(): void
     {
-        $this->formatter = new StylishFormatter();
+        $this->formatter = new Stylish();
     }
 
     public function testFormatSimpleAdded(): void
@@ -58,7 +58,7 @@ class StylishFormatterTest extends TestCase
 
     public function testFormatComplexValue(): void
     {
-        $formatter = new StylishFormatter();
+        $formatter = new Stylish();
     
         $diff = [[
             'key' => 'obj',

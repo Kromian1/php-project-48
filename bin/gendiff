@@ -4,7 +4,6 @@
 
 use Gendiff\Parser;
 use Gendiff\Differ;
-use Gendiff\StylishFormatter;
 
 $autoloadPath1 = __DIR__ . '/../vendor/autoload.php';
 $autoloadPath2 = __DIR__ . '/../../autoload.php';
@@ -50,11 +49,11 @@ if (!file_exists($pathFile2)) {
   exit(1);
 }
 
-$parser = new Parser;
+$parser = new Parser();
 $dataFile1 = $parser->parse($pathFile1);
 $dataFile2 = $parser->parse($pathFile2);
 
-$differ = new Differ;
-$formatter = new StylishFormatter();
+$differ = new Differ();
 
-echo $differ->compare($dataFile1, $dataFile2, $formatter);
+echo $differ->compare($dataFile1, $dataFile2, $format);
+echo PHP_EOL;

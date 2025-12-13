@@ -3,21 +3,16 @@
 namespace Gendiff;
 
 use Gendiff\Contracts\DifferInterface;
-use Gendiff\StylishFormatter;
 use Illuminate\Support\Collection;
+
+use function Gendiff\Formatters\getFormatter;
 
 class Differ implements DifferInterface
 {
-    private array $comparedFiles = [];
-
-    public function compare(object $file1, object $file2, $formatter = null): string
+    public function compare(object $file1, object $file2, $format = 'stylish'): string
     {
         $comparedFiles = $this->buildDiff($file1, $file2);
-
-        if ($formatter === null) {
-            $formatter = new StylishFormatter();
-        }
-
+        $formatter = getFormatter($format);
         return $formatter->format($comparedFiles);
     }
 
@@ -73,7 +68,6 @@ class Differ implements DifferInterface
                 ];
             }
         }
-        $this->comparedFiles = $comparedFiles;
         return $comparedFiles;
     }
 }

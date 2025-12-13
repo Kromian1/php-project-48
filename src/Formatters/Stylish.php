@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff;
+namespace Gendiff\Formatters;
 
 use Gendiff\Contracts\FormatterInterface;
 
-class StylishFormatter implements FormatterInterface
+class Stylish implements FormatterInterface
 {
     public function format(array $comparedFiles): string
     {

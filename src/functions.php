@@ -5,7 +5,7 @@ namespace Gendiff;
 use Gendiff\Parser;
 use Gendiff\Differ;
 
-function genDiff(string $pathToFile1, string $pathToFile2): string
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
 {
     if (!file_exists($pathToFile1)) {
         throw new \InvalidArgumentException("$pathToFile1 is not found");
@@ -19,5 +19,5 @@ function genDiff(string $pathToFile1, string $pathToFile2): string
     $dataFile2 = $parser->parse($pathToFile2);
 
     $differ = new Differ();
-    return $differ->compare($dataFile1, $dataFile2);
+    return $differ->compare($dataFile1, $dataFile2, $format);
 }
