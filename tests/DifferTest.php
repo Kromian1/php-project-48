@@ -174,6 +174,23 @@ EXPECTED;
     $this->assertEquals($expected, $diff);
     }
 
+    public function testCompareWithJsonFormat(): void
+    {
+        $differ = new Differ();
+        
+        $file1 = (object) ['key' => 'value1'];
+        $file2 = (object) ['key' => 'value2', 'newKey' => 'newValue'];
+        
+        $result = $differ->compare($file1, $file2, 'json');
+        
+        $this->assertJson($result);
+        
+        $decoded = json_decode($result, true);
+        $this->assertIsArray($decoded);
+        $this->assertArrayHasKey(0, $decoded);
+        $this->assertEquals('key', $decoded[0]['key']);
+    }
+
     public function testCompareEmptyFiles(): void
     {
         $emptyJson1 = $this->createEmptyFile('json');
@@ -193,6 +210,7 @@ EXPECTED;
         unlink($emptyJson1);
         unlink($emptyJson2);
     }
+
     private function createEmptyFile(string $extension): string
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');

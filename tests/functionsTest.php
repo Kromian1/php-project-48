@@ -15,10 +15,14 @@ class functionsTest extends TestCase
     {
         $actualStylish = genDiff($pathFile1, $pathFile2, 'stylish');
         $actualPlain = genDiff($pathFile1, $pathFile2, 'plain');
+        $actualJson = genDiff($pathFile1, $pathFile2, 'json');
         $actualDefault = genDiff($pathFile1, $pathFile2);
+        $decoded = json_decode($actualJson, true);
 
+        $this->assertJson($actualJson);
+        $this->assertIsArray($decoded);
         $this->assertEquals($expectedStylish, $actualStylish);
-        $this->assertEquals($actualPlain, $actualPlain);
+        $this->assertEquals($expectedPlain, $actualPlain);
         $this->assertEquals($actualDefault, $actualStylish);
     }
 
@@ -36,7 +40,7 @@ class functionsTest extends TestCase
     }
     public static function mainFlowProvider(): array
     {
-        $expectedStylish = <<<EXPECTED
+    $expectedStylish = <<<EXPECTED
 {
   - follow: false
     host: hexlet.io

@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Gendiff\Formatters\Stylish;
 
-class StylishFormatterTest extends TestCase
+class StylishTest extends TestCase
 {
     private Stylish $formatter;
 
