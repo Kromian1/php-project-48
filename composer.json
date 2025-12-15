@@ -4,13 +4,15 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Gendiff\\": "src/"
+            "Gendiff\\": "src/",
+            "Differ\\Differ\\": "src/"
         },
         "files": [
             "src/functions.php",
             "src/Formatters/Formatter.php"
         ]
     },
+    "bin": ["bin/gendiff"],
     "type": "library",
     "authors": [
         {

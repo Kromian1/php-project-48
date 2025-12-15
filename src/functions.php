@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff;
+namespace Differ\Differ;
 
 use Gendiff\Parser;
 use Gendiff\Differ;

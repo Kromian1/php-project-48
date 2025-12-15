@@ -5,7 +5,7 @@ namespace Gendiff\tests;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-use function Gendiff\genDiff;
+use function Differ\Differ\genDiff;
 
 class functionsTest extends TestCase
 {
@@ -32,7 +32,7 @@ class functionsTest extends TestCase
         $nonExistingFile = sys_get_temp_dir() . '/non_existing_' . uniqid() . '.json';
 
         $this->expectException(\InvalidArgumentException::class);
-        gendiff($nonExistingFile, $tempFile);
+        genDiff($nonExistingFile, $tempFile);
 
         if (file_exists($tempFile)) {
             unlink($tempFile);
