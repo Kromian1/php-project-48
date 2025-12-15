@@ -10,16 +10,54 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 
-# Gendiff
+# Вычислитель отличий
 
 Утилита для сравнения содержимого текстовых файлов, также доступная в качестве библиотеки.
 Поддерживаются как плоские, так и многоуровневые файлы.
 Программа написана на PHP.
 
+##  Установка
+
+В качестве CLI-утилиты:
+
+- git clone https://github.com/Kromian1/php-project-48.git
+- cd php-project-48
+- make install
+
+В качестве библиотеки:
+
+
+##  Запуск
+
+Для запуска утилиты неообходимо запустить bin-файл gendiff, при необходимости указать формат, а также указать пути до двух сравниваемых файлов.
+
+Пример запуска из корня программы:
+
+- ./bin/gendiff --format plain ~/files/file1.json ~/files/file2.yaml
+
+Для использования в качестве библиотеки:
+
+  
+##  Опции
+
+Показать документацию:
+
+- ./bin/gendiff -h || ./bin/gendiff --help
+  
+Показать версию программы:
+
+- ./bin/gendiff -v || ./bin/gendiff --version
+  
+Выбор формата вывода:
+- --format <fmt>
+
+вместо \<fmt\> указать формат.
+
 ## Форматы
 
 Программа может читать файлы следующих форматов:
-_**JSON, YAML, YML.**_
+
+_JSON, YAML, YML._
 
 ## Вывод
 
@@ -28,13 +66,10 @@ _**JSON, YAML, YML.**_
 2. Plain. asdads
 3. Json. sdfsf
 
+## Требования
 
-
-
-
-
-
-
+- PHP 8.4
+- Composer
 
 ## Пример использования утилиты (Asciinema):
 
@@ -44,8 +79,8 @@ _**JSON, YAML, YML.**_
 
 **Сравнение с вложенными структурами**: https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt
 
-**Сравнение с явным выбором формата вывода stylish**:
+**Сравнение с явным выбором формата вывода stylish**: https://asciinema.org/a/Vg3HSNXiVe4wV1HEF6Ppa6mEm
 
-**Сравнение с явным выбором формата вывода Plain**:
+**Сравнение с явным выбором формата вывода Plain**: https://asciinema.org/a/tvPzADTuFjZZ5fagvUhc62qE6
 
-**Сравнение с явным выбором формата вывода json**: [![asciicast](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY.svg)](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY)
+**Сравнение с явным выбором формата вывода json**: https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY
