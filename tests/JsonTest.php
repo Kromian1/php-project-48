@@ -11,7 +11,7 @@ class JsonTest extends TestCase
     public function testJsonFormat(): void
     {
         $formatter = new Json();
-        
+
         $diff = [
             [
                 'key' => 'follow',
@@ -24,30 +24,27 @@ class JsonTest extends TestCase
                 'value' => 'hexlet.io'
             ]
         ];
-        
+
         $result = $formatter->format($diff);
-        
+
         $decoded = json_decode($result, true);
-        
+
         $this->assertJson($result);
         $this->assertEquals($diff, $decoded);
     }
-    
+
     public function testJsonFormatEmpty(): void
     {
         $formatter = new Json();
-        
         $diff = [];
-        
         $result = $formatter->format($diff);
-        
         $this->assertEquals('[]', $result);
     }
     
     public function testJsonFormatComplex(): void
     {
         $formatter = new Json();
-        
+
         $diff = [
             [
                 'key' => 'common',
@@ -61,9 +58,8 @@ class JsonTest extends TestCase
                 ]
             ]
         ];
-        
+
         $result = $formatter->format($diff);
-        
         $decoded = json_decode($result, true);
         
         $this->assertJson($result);

@@ -19,11 +19,11 @@ class StylishTest extends TestCase
     {
         $diff = [['key' => 'test', 'type' => 'added', 'value' => 'value']];
         $result = $this->formatter->format($diff);
-        
+
         $this->assertStringContainsString('+ test: value', $result);
     }
 
-        public function testFormatSimpleRemoved(): void
+    public function testFormatSimpleRemoved(): void
     {
         $diff = [['key' => 'test', 'type' => 'removed', 'value' => 'value']];
         $result = $this->formatter->format($diff);
@@ -31,7 +31,7 @@ class StylishTest extends TestCase
         $this->assertStringContainsString('- test: value', $result);
     }
 
-        public function testFormatSimpleUnchanged(): void
+    public function testFormatSimpleUnchanged(): void
     {
         $diff = [['key' => 'test', 'type' => 'unchanged', 'value' => 'value']];
         $result = $this->formatter->format($diff);
@@ -40,7 +40,7 @@ class StylishTest extends TestCase
         $this->assertStringNotContainsString('+', $result);
         $this->assertStringNotContainsString('-', $result);
     }
-    
+
     public function testFormatChanged(): void
     {
         $diff = [[
@@ -49,9 +49,9 @@ class StylishTest extends TestCase
             'oldValue' => 'old',
             'newValue' => 'new'
         ]];
-        
+
         $result = $this->formatter->format($diff);
-        
+
         $this->assertStringContainsString('- test: old', $result);
         $this->assertStringContainsString('+ test: new', $result);
     }
@@ -59,15 +59,15 @@ class StylishTest extends TestCase
     public function testFormatComplexValue(): void
     {
         $formatter = new Stylish();
-    
+
         $diff = [[
             'key' => 'obj',
             'type' => 'added',
             'value' => json_decode('{"inner": "value"}')
         ]];
-    
+
         $result = $formatter->format($diff);
-    
+
         $this->assertStringContainsString('+ obj:', $result);
         $this->assertStringContainsString('inner: value', $result);
     }
@@ -81,9 +81,8 @@ class StylishTest extends TestCase
                 ['key' => 'child', 'type' => 'added', 'value' => 'value']
             ]
         ]];
-    
+
         $result = $this->formatter->format($diff);
-    
 
         $this->assertStringContainsString('parent: {', $result);
         $this->assertStringContainsString('+ child: value', $result);
@@ -94,7 +93,7 @@ class StylishTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unknown type: invalid');
-    
+
         $diff = [['type' => 'invalid', 'key' => 'test', 'value' => 'value']];
         $this->formatter->format($diff);
     }
@@ -107,9 +106,9 @@ class StylishTest extends TestCase
             ['key' => 'bool_true', 'type' => 'added', 'value' => true],
             ['key' => 'bool_false', 'type' => 'added', 'value' => false],
         ];
-    
+
         $result = $this->formatter->format($diff);
-    
+
         $this->assertStringContainsString('+ null_val: null', $result);
         $this->assertStringContainsString('+ empty_str:', $result);
         $this->assertStringContainsString('+ bool_true: true', $result);

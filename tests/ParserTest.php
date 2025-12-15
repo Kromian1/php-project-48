@@ -8,7 +8,6 @@ use Gendiff\Parser;
 
 class ParserTest extends TestCase
 {
-
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile, object $expected): void

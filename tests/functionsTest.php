@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 use function Differ\Differ\genDiff;
 
-class functionsTest extends TestCase
+class FunctionsTest extends TestCase
 {
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
@@ -40,7 +40,7 @@ class functionsTest extends TestCase
     }
     public static function mainFlowProvider(): array
     {
-    $expectedStylish = <<<EXPECTED
+        $expectedStylish = <<<EXPECTED
 {
   - follow: false
     host: hexlet.io
@@ -52,7 +52,7 @@ class functionsTest extends TestCase
 
 EXPECTED;
 
-    $expectedPlain = <<<PLAIN
+        $expectedPlain = <<<PLAIN
     Property 'follow' was removed
     Property 'proxy' was removed
     Property 'timeout' was updated. From 50 to 20

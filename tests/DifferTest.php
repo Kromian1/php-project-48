@@ -9,7 +9,6 @@ use Gendiff\Parser;
 
 class DifferTest extends TestCase
 {
-
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
 
     #[DataProvider('mainFlowProvider')]
@@ -154,24 +153,24 @@ EXPECTED;
 
     public function testBuildDiffNested(): void
     {
-    $differ = new Differ();
-    
-    $obj1 = json_decode('{"nested": {"inner": "old"}}');
-    $obj2 = json_decode('{"nested": {"inner": "new"}}');
-    
-    $diff = $differ->buildDiff($obj1, $obj2);
-    
-    $expected = [
-        [
-            'key' => 'nested',
-            'type' => 'nested',
-            'children' => [
-                ['key' => 'inner', 'type' => 'changed', 'oldValue' => 'old', 'newValue' => 'new']
+        $differ = new Differ();
+        
+        $obj1 = json_decode('{"nested": {"inner": "old"}}');
+        $obj2 = json_decode('{"nested": {"inner": "new"}}');
+        
+        $diff = $differ->buildDiff($obj1, $obj2);
+        
+        $expected = [
+            [
+                'key' => 'nested',
+                'type' => 'nested',
+                'children' => [
+                    ['key' => 'inner', 'type' => 'changed', 'oldValue' => 'old', 'newValue' => 'new']
+                ]
             ]
-        ]
-    ];
-    
-    $this->assertEquals($expected, $diff);
+        ];
+        
+        $this->assertEquals($expected, $diff);
     }
 
     public function testCompareWithJsonFormat(): void

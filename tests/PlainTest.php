@@ -12,7 +12,7 @@ class PlainTest extends TestCase
     {
         $formatter = new Plain();
         $diff = [['key' => 'follow', 'type' => 'added', 'value' => false]];
-    
+
         $result = $formatter->format($diff);
         $this->assertEquals("Property 'follow' was added with value: false", $result);
     }
@@ -21,7 +21,7 @@ class PlainTest extends TestCase
     {
         $formatter = new Plain();
         $diff = [['key' => 'setting2', 'type' => 'removed', 'value' => 200]];
-        
+
         $result = $formatter->format($diff);
         $this->assertEquals("Property 'setting2' was removed", $result);
     }
@@ -30,12 +30,12 @@ class PlainTest extends TestCase
     {
         $formatter = new Plain();
         $diff = [[
-            'key' => 'setting3', 
-            'type' => 'changed', 
-            'oldValue' => true, 
+            'key' => 'setting3',
+            'type' => 'changed',
+            'oldValue' => true,
             'newValue' => null
         ]];
-        
+
         $result = $formatter->format($diff);
         $this->assertEquals("Property 'setting3' was updated. From true to null", $result);
     }
@@ -51,7 +51,7 @@ class PlainTest extends TestCase
                 ['key' => 'setting2', 'type' => 'removed', 'value' => 200]
             ]
         ]];
-        
+
         $result = $formatter->format($diff);
         $expected = "Property 'common.follow' was added with value: false\n" .
                     "Property 'common.setting2' was removed";
@@ -62,7 +62,7 @@ class PlainTest extends TestCase
     {
         $formatter = new Plain();
         $diff = [];
-        
+
         $result = $formatter->format($diff);
         $this->assertEquals('', $result);
     }
@@ -70,7 +70,7 @@ class PlainTest extends TestCase
     public function testPlainFormatAllValueTypes(): void
     {
         $formatter = new Plain();
-        
+
         $diff = [
             [
                 'key' => 'string',
@@ -98,14 +98,14 @@ class PlainTest extends TestCase
                 'value' => ['nested' => 'value']
             ]
         ];
-        
+
         $result = $formatter->format($diff);
         $expected = "Property 'string' was added with value: 'text'\n" .
                     "Property 'number' was added with value: 42\n" .
                     "Property 'bool' was added with value: true\n" .
                     "Property 'null' was added with value: null\n" .
                     "Property 'complex' was added with value: [complex value]";
-        
+                    
         $this->assertEquals($expected, $result);
     }
 }
