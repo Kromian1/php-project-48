@@ -17,7 +17,7 @@ class Plain implements FormatterInterface
         $lines = [];
 
         foreach ($comparedFiles as $node) {
-            $currentPath = $path ? "{$path}.{$node['key']}" : $node['key'];
+            $currentPath = $path !== '' ? "{$path}.{$node['key']}" : $node['key'];
 
             switch ($node['type']) {
                 case 'nested':
