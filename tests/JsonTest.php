@@ -40,7 +40,6 @@ class JsonTest extends TestCase
         $result = $formatter->format($diff);
         $this->assertEquals('[]', $result);
     }
-    
     public function testJsonFormatComplex(): void
     {
         $formatter = new Json();

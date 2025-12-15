@@ -35,7 +35,6 @@ class StylishTest extends TestCase
     {
         $diff = [['key' => 'test', 'type' => 'unchanged', 'value' => 'value']];
         $result = $this->formatter->format($diff);
-        
         $this->assertStringContainsString('test: value', $result);
         $this->assertStringNotContainsString('+', $result);
         $this->assertStringNotContainsString('-', $result);
@@ -114,5 +113,4 @@ class StylishTest extends TestCase
         $this->assertStringContainsString('+ bool_true: true', $result);
         $this->assertStringContainsString('+ bool_false: false', $result);
     }
-
 }

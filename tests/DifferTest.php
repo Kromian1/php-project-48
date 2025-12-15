@@ -183,7 +183,6 @@ EXPECTED;
         $result = $differ->compare($file1, $file2, 'json');
 
         $this->assertJson($result);
-        
         $decoded = json_decode($result, true);
         $this->assertIsArray($decoded);
         $this->assertArrayHasKey(0, $decoded);
