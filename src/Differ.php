@@ -18,9 +18,6 @@ class Differ implements DifferInterface
 
     public function buildDiff(object $file1, object $file2): array
     {
-         if ($depth > 50) {
-        throw new \RuntimeException('Maximum recursion depth (50) exceeded in buildDiff');
-    }
         $arrayFile1 = get_object_vars($file1);
         $arrayFile2 = get_object_vars($file2);
 
