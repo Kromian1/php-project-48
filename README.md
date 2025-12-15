@@ -10,15 +10,42 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 
+# Gendiff
+
+Утилита для сравнения содержимого текстовых файлов, также доступная в качестве библиотеки.
+Поддерживаются как плоские, так и многоуровневые файлы.
+Программа написана на PHP.
+
+## Форматы
+
+Программа может читать файлы следующих форматов:
+_**JSON, YAML, YML.**_
+
+## Вывод
+
+Вывод программы доступен в следующем виде:
+1. Stylish. Используется как формат по умолчанию. 
+2. Plain. asdads
+3. Json. sdfsf
+
+
+
+
+
+
+
+
 
 ## Пример использования утилиты (Asciinema):
 
-**Сравнение JSON**: [![asciicast](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.svg)](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ)
+**Сравнение JSON**: https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ
 
-**Сравнение YAML**: [![asciicast](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte.svg)](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte)
+**Сравнение YAML**: https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte
 
-**Сравнение с вложенными структурами**: [![asciicast](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt.svg)](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt)
+**Сравнение с вложенными структурами**: https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt
 
-**Сравнение с явным выбором формата вывода stylish и plain**: [![asciicast](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di.svg)](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di)
+**Сравнение с явным выбором формата вывода stylish**:
+
+**Сравнение с явным выбором формата вывода Plain**:
 
 **Сравнение с явным выбором формата вывода json**: [![asciicast](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY.svg)](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY)
