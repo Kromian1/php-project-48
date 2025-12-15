@@ -61,7 +61,7 @@ class JsonTest extends TestCase
 
         $result = $formatter->format($diff);
         $decoded = json_decode($result, true);
-        
+
         $this->assertJson($result);
         $this->assertEquals($diff, $decoded);
     }

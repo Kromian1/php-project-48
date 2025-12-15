@@ -154,12 +154,12 @@ EXPECTED;
     public function testBuildDiffNested(): void
     {
         $differ = new Differ();
-        
+
         $obj1 = json_decode('{"nested": {"inner": "old"}}');
         $obj2 = json_decode('{"nested": {"inner": "new"}}');
-        
+
         $diff = $differ->buildDiff($obj1, $obj2);
-        
+
         $expected = [
             [
                 'key' => 'nested',
@@ -169,19 +169,19 @@ EXPECTED;
                 ]
             ]
         ];
-        
+
         $this->assertEquals($expected, $diff);
     }
 
     public function testCompareWithJsonFormat(): void
     {
         $differ = new Differ();
-        
+
         $file1 = (object) ['key' => 'value1'];
         $file2 = (object) ['key' => 'value2', 'newKey' => 'newValue'];
-        
+
         $result = $differ->compare($file1, $file2, 'json');
-        
+
         $this->assertJson($result);
         
         $decoded = json_decode($result, true);

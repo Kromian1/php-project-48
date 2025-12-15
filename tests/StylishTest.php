@@ -27,7 +27,7 @@ class StylishTest extends TestCase
     {
         $diff = [['key' => 'test', 'type' => 'removed', 'value' => 'value']];
         $result = $this->formatter->format($diff);
-        
+
         $this->assertStringContainsString('- test: value', $result);
     }
 

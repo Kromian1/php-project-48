@@ -105,7 +105,6 @@ class PlainTest extends TestCase
                     "Property 'bool' was added with value: true\n" .
                     "Property 'null' was added with value: null\n" .
                     "Property 'complex' was added with value: [complex value]";
-                    
         $this->assertEquals($expected, $result);
     }
 }
