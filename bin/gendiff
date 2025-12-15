@@ -28,7 +28,8 @@ Usage:
 Options:
   -h --help                     Show this screen
   -v --version                  Show version
-  --format <fmt>                Report format [default: stylish]
+  --format <fmt>                Report format [default: stylish]. 
+                                Available formats: plain, json.
 DOC;
 
 $options = ['version' => 'gendiff 1.0.0'];
