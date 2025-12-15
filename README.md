@@ -10,15 +10,92 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Kromian1_php-project-48&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Kromian1_php-project-48)
 
+# Вычислитель отличий
+
+Утилита для сравнения содержимого текстовых файлов, также доступная в качестве библиотеки.
+Поддерживаются как плоские, так и многоуровневые файлы.
+Программа написана на PHP.
+
+##  Установка
+
+В качестве CLI-утилиты:
+
+- git clone https://github.com/Kromian1/php-project-48.git
+- cd php-project-48
+- make install
+
+##  Запуск
+
+Для запуска утилиты неообходимо запустить bin-файл gendiff, при необходимости указать формат, а также указать пути до двух сравниваемых файлов.
+
+Пример запуска из корня программы:
+
+- ./bin/gendiff --format plain ~/files/file1.json ~/files/file2.yaml
+
+Для использования в качестве библиотеки:
+
+- use function Gendiff\genDiff;
+
+Сигнатура:
+
+- genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
+
+Функция принимает на вход пути до файлов в строковом типе данных, а также формат вывода. По умолчанию используется stylish.
+
+##  Опции
+
+Показать документацию:
+
+- ./bin/gendiff -h || ./bin/gendiff --help
+  
+Показать версию программы:
+
+- ./bin/gendiff -v || ./bin/gendiff --version
+  
+Выбор формата вывода:
+- --format <fmt>
+
+вместо \<fmt\> указать формат.
+
+## Форматы
+
+Программа может читать файлы следующих форматов:
+
+_JSON, YAML, YML._
+
+## Вывод
+
+Вывод программы доступен в следующем виде:
+
+- Stylish. Используется как формат по умолчанию. Каждая строка имеет префикс, описывающий отличие.
+   
+Строки имееют следующие значения:
+
+"-" - ключ есть в первом файле, но отсутствует во втором файле.
+
+"+" - ключ отсутсвует в первом файле, но есть во втором файле, либо есть в обоих файлах, но с разными значениями.
+
+" " - ключ есть в обоих файлах, и его значения совпадают.
+
+- Plain. В текстовом виде описывает такие отличия ключей, как удаление, добавление, изменение.
+
+- Json. В формате Json добавляет ключ, описывающий следующие действия: удаление, добавление, изменение, неизменение.
+
+## Требования
+
+- PHP 8.4
+- Composer
 
 ## Пример использования утилиты (Asciinema):
 
-**Сравнение JSON**: [![asciicast](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ.svg)](https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ)
+**Сравнение JSON**: https://asciinema.org/a/ifijK7SbAiWPhu2gpl1ZRrvbZ
 
-**Сравнение YAML**: [![asciicast](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte.svg)](https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte)
+**Сравнение YAML**: https://asciinema.org/a/ImRSPqJDCyYOrzbV51bgxXzte
 
-**Сравнение с вложенными структурами**: [![asciicast](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt.svg)](https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt)
+**Сравнение с вложенными структурами**: https://asciinema.org/a/y7jfhp512gwVZTWEKh8BdOACt
 
-**Сравнение с явным выбором формата вывода stylish и plain**: [![asciicast](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di.svg)](https://asciinema.org/a/1YyDIuIyEmJU6lYAMqTpDi9di)
+**Сравнение с явным выбором формата вывода stylish**: https://asciinema.org/a/Vg3HSNXiVe4wV1HEF6Ppa6mEm
 
-**Сравнение с явным выбором формата вывода json**: [![asciicast](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY.svg)](https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY)
+**Сравнение с явным выбором формата вывода Plain**: https://asciinema.org/a/tvPzADTuFjZZ5fagvUhc62qE6
+
+**Сравнение с явным выбором формата вывода json**: https://asciinema.org/a/Az2V18BbYjSkZVA2Ik3sLUcUY
