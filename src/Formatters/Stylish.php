@@ -105,7 +105,7 @@ class Stylish implements FormatterInterface
         return (string) $value;
     }
 
-    private function formatComplexValue(iterable $value, int $depth): string
+    private function formatComplexValue(object|array $value, int $depth): string
     {
         $items = [];
 
