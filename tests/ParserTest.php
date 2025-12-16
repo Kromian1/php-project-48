@@ -50,6 +50,17 @@ class ParserTest extends TestCase
         }
     }
 
+    public function testFileReadError(): void
+    {
+        $parser = new Parser();
+        $nonExistentFile = '/tmp/nonexistent_' . uniqid() . '.json';
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Unable to read file: $nonExistentFile");
+        
+        $parser->parse($nonExistentFile);
+    }
+
     public static function mainFlowProvider(): array
     {
         $expectedParseFile1 = new \stdClass();

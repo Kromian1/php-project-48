@@ -108,8 +108,9 @@ class Stylish implements FormatterInterface
     private function formatComplexValue(object|array $value, int $depth): string
     {
         $items = [];
+        $iterable = is_object($value) ? get_object_vars($value) : $value;
 
-        foreach ($value as $key => $val) {
+        foreach ($iterable as $key => $val) {
             $formattedValue = $this->formatValue($val, $depth);
             $indent = $this->indent($depth);
             $items[] = "{$indent}  {$key}: {$formattedValue}";

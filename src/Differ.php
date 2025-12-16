@@ -9,7 +9,7 @@ use function Gendiff\Formatters\getFormatter;
 
 class Differ implements DifferInterface
 {
-    public function compare(object $file1, object $file2, string $format = 'stylish'): string
+    public function compare(object $file1, object $file2, string $format = 'stylish'): string|false
     {
         $comparedFiles = $this->buildDiff($file1, $file2);
         $formatter = getFormatter($format);

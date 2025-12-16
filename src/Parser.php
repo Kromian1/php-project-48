@@ -9,6 +9,9 @@ class Parser implements ParserInterface
 {
     public function parse(string $pathFile): mixed
     {
+        if (!file_exists($pathFile)) {
+            throw new \RuntimeException("Unable to read file: $pathFile");
+        }
         $content = file_get_contents($pathFile);
         $extension = pathinfo($pathFile, PATHINFO_EXTENSION);
 

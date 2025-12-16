@@ -8,9 +8,13 @@
             "Differ\\Differ\\": "src/"
         },
         "files": [
-            "src/functions.php",
             "src/Formatters/Formatter.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gendiff\\Tests\\": "tests/"
+        }
     },
     "bin": ["bin/gendiff"],
     "type": "library",

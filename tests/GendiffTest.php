@@ -1,22 +1,22 @@
 <?php
 
-namespace Gendiff\tests;
+namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Differ\Differ\Gendiff;
 
-use function Differ\Differ\genDiff;
-
-class FunctionsTest extends TestCase
+class GendiffTest extends TestCase
 {
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedStylish, string $expectedPlain): void
     {
-        $actualStylish = genDiff($pathFile1, $pathFile2, 'stylish');
-        $actualPlain = genDiff($pathFile1, $pathFile2, 'plain');
-        $actualJson = genDiff($pathFile1, $pathFile2, 'json');
-        $actualDefault = genDiff($pathFile1, $pathFile2);
+        $gendiff = new Gendiff();
+        $actualStylish = $gendiff->diff($pathFile1, $pathFile2, 'stylish');
+        $actualPlain = $gendiff->diff($pathFile1, $pathFile2, 'plain');
+        $actualJson = $gendiff->diff($pathFile1, $pathFile2, 'json');
+        $actualDefault = $gendiff->diff($pathFile1, $pathFile2);
         $decoded = json_decode($actualJson, true);
 
         $this->assertJson($actualJson);
@@ -26,18 +26,36 @@ class FunctionsTest extends TestCase
         $this->assertEquals($actualDefault, $actualStylish);
     }
 
-    public function testGendiffWithNotExistingFile(): void
+    #[DataProvider('notExistingFilesProvider')]
+    public function testGendiffWithNotExistingFiles(string $file1, string $file2, string $expectedError): void
     {
-        $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');
-        $nonExistingFile = sys_get_temp_dir() . '/non_existing_' . uniqid() . '.json';
+        $gendiff = new Gendiff();
 
         $this->expectException(\InvalidArgumentException::class);
-        genDiff($nonExistingFile, $tempFile);
+        $this->expectExceptionMessageMatches($expectedError);
 
-        if (file_exists($tempFile)) {
-            unlink($tempFile);
-        }
+        $gendiff->diff($file1, $file2);
     }
+
+    public static function notExistingFilesProvider(): array
+    {
+        $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');
+        $nonExisting = sys_get_temp_dir() . '/non_existing_' . uniqid() . '.json';
+        
+        return [
+            'First file does not exist' => [
+                $nonExisting,
+                $tempFile,
+                '/is not found/'
+            ],
+            'Second file does not exist' => [
+                $tempFile,
+                $nonExisting,
+                '/is not found/'
+            ]
+        ];
+    }
+
     public static function mainFlowProvider(): array
     {
         $expectedStylish = <<<EXPECTED
