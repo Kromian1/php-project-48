@@ -4,19 +4,19 @@ namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Differ\Differ\Gendiff;
 
-class GendiffTest extends TestCase
+use function Differ\Differ\genDiff;
+
+class FunctionsTest extends TestCase
 {
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
     #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedStylish, string $expectedPlain): void
     {
-        $gendiff = new Gendiff();
-        $actualStylish = $gendiff->diff($pathFile1, $pathFile2, 'stylish');
-        $actualPlain = $gendiff->diff($pathFile1, $pathFile2, 'plain');
-        $actualJson = $gendiff->diff($pathFile1, $pathFile2, 'json');
-        $actualDefault = $gendiff->diff($pathFile1, $pathFile2);
+        $actualStylish = genDiff($pathFile1, $pathFile2, 'stylish');
+        $actualPlain = genDiff($pathFile1, $pathFile2, 'plain');
+        $actualJson = genDiff($pathFile1, $pathFile2, 'json');
+        $actualDefault = genDiff($pathFile1, $pathFile2);
         $decoded = json_decode($actualJson, true);
 
         $this->assertJson($actualJson);
@@ -29,12 +29,11 @@ class GendiffTest extends TestCase
     #[DataProvider('notExistingFilesProvider')]
     public function testGendiffWithNotExistingFiles(string $file1, string $file2, string $expectedError): void
     {
-        $gendiff = new Gendiff();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessageMatches($expectedError);
 
-        $gendiff->diff($file1, $file2);
+        genDiff($file1, $file2);
     }
 
     public static function notExistingFilesProvider(): array
