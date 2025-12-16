@@ -40,7 +40,6 @@ class FunctionsTest extends TestCase
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'tempFile');
         $nonExisting = sys_get_temp_dir() . '/non_existing_' . uniqid() . '.json';
-        
         return [
             'First file does not exist' => [
                 $nonExisting,

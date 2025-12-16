@@ -57,7 +57,6 @@ class ParserTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage("Unable to read file: $nonExistentFile");
-        
         $parser->parse($nonExistentFile);
     }
 
