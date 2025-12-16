@@ -34,7 +34,7 @@
 
 Для использования в качестве библиотеки:
 
-- use function Gendiff\genDiff;
+- use function Differ\Differ\genDiff;
 
 Сигнатура:
 
