@@ -83,7 +83,7 @@ _JSON, YAML, YML._
 
 ## Требования
 
-- PHP 8.4
+- PHP 8.3
 - Composer
 
 ## Пример использования утилиты (Asciinema):
