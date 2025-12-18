@@ -58,7 +58,7 @@
 - ./bin/gendiff -v || ./bin/gendiff --version
   
 Выбор формата вывода:
-- --format <fmt>
+- --format \<fmt\>
 
 вместо \<fmt\> указать формат.
 
