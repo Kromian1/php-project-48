@@ -9,24 +9,23 @@ use Gendiff\Parser;
 
 class DifferTest extends TestCase
 {
-    private const FIXTURESDIR = __DIR__ . '/fixtures/';
+    private const string FIXTURESDIR = __DIR__ . '/fixtures/';
 
     #[DataProvider('mainFlowProvider')]
-    public function testMainFlow(object $dataFile1, object $dataFile2, string $expected): void
+    public function testMainFlow(string $pathFile1, string $pathFile2, string $expected): void
     {
         $differ = new Differ();
-        $actual = $differ->compare($dataFile1, $dataFile2);
+        $actual = $differ->genDiff($pathFile1, $pathFile2);
 
         $this->assertEquals($expected, $actual);
     }
 
     public static function mainFlowProvider(): array
     {
-        $parser = new Parser();
-        $dataFile1Json = $parser->parse(self::FIXTURESDIR . "file1.json");
-        $dataFile2Json = $parser->parse(self::FIXTURESDIR . "file2.json");
-        $dataFile1Yml = $parser->parse(self::FIXTURESDIR . "file1.yml");
-        $dataFile2Yaml = $parser->parse(self::FIXTURESDIR . "file2.yaml");
+        $pathFile1Json = self::FIXTURESDIR . "file1.json";
+        $pathFile2Json = self::FIXTURESDIR . "file2.json";
+        $pathFile1Yml = self::FIXTURESDIR . "file1.yml";
+        $pathFile2Yaml = self::FIXTURESDIR . "file2.yaml";
 
         $expectedDifferent = <<<EXPECTED
 {
@@ -38,6 +37,7 @@ class DifferTest extends TestCase
   + verbose: true
 }
 
+
 EXPECTED;
 
         $expectedSame = <<<EXPECTED
@@ -47,15 +47,16 @@ EXPECTED;
     verbose: true
 }
 
+
 EXPECTED;
 
         return [
-            'Parsed and compared different files JSON' => [$dataFile1Json, $dataFile2Json, $expectedDifferent],
-            'Parsed and compared different files YML' => [$dataFile1Yml, $dataFile2Yaml, $expectedDifferent],
-            'Parsed and compared different files JSON and YML' => [$dataFile1Json, $dataFile2Yaml, $expectedDifferent],
-            'Parsed and compared same files JSON' => [$dataFile2Json, $dataFile2Json, $expectedSame],
-            'Parsed and compared same files YML' => [$dataFile2Yaml, $dataFile2Yaml, $expectedSame],
-            'Parsed and compared same files JSON and YML' => [$dataFile2Json, $dataFile2Yaml, $expectedSame]
+            'Paths to different files JSON' => [$pathFile1Json, $pathFile2Json, $expectedDifferent],
+            'Paths to compared different files YML' => [$pathFile1Yml, $pathFile2Yaml, $expectedDifferent],
+            'Paths to compared different files JSON and YML' => [$pathFile1Json, $pathFile2Yaml, $expectedDifferent],
+            'Paths to compared same files JSON' => [$pathFile2Json, $pathFile2Json, $expectedSame],
+            'Paths to compared same files YML' => [$pathFile2Yaml, $pathFile2Yaml, $expectedSame],
+            'Paths to compared same files JSON and YML' => [$pathFile2Json, $pathFile2Yaml, $expectedSame]
         ];
     }
 
@@ -96,13 +97,10 @@ EXPECTED;
     public function testCompareEmptyFileVsNonEmptyFile(): void
     {
         $emptyJson = $this->createEmptyFile('json');
-
-        $parser = new Parser();
-        $parsedNonEmptyJson = $parser->parse(self::FIXTURESDIR . "file1.json");
-        $parsedEmptyJson = $parser->parse($emptyJson);
+        $nonEmptyJson = self::FIXTURESDIR . "file1.json";
 
         $differ = new Differ();
-        $actual = $differ->compare($parsedEmptyJson, $parsedNonEmptyJson);
+        $actual = $differ->genDiff($emptyJson, $nonEmptyJson);
 
         $expected = <<<EXPECTED
 {
@@ -112,6 +110,7 @@ EXPECTED;
   + timeout: 50
 }
 
+
 EXPECTED;
         $this->assertEquals($expected, $actual);
     }
@@ -119,13 +118,10 @@ EXPECTED;
     public function testCompareNonEmptyFileVsEmptyFile(): void
     {
         $emptyJson = $this->createEmptyFile('json');
-
-        $parser = new Parser();
-        $parsedNonEmptyJson = $parser->parse(self::FIXTURESDIR . "file1.json");
-        $parsedEmptyJson = $parser->parse($emptyJson);
+        $pathFile1Json = self::FIXTURESDIR . "file1.json";
 
         $differ = new Differ();
-        $actual = $differ->compare($parsedNonEmptyJson, $parsedEmptyJson);
+        $actual = $differ->genDiff($pathFile1Json, $emptyJson);
         $expected = <<<EXPECTED
 {
   - follow: false
@@ -133,6 +129,7 @@ EXPECTED;
   - proxy: 123.234.53.22
   - timeout: 50
 }
+
 
 EXPECTED;
         $this->assertEquals($expected, $actual);
@@ -177,16 +174,16 @@ EXPECTED;
     {
         $differ = new Differ();
 
-        $file1 = (object) ['key' => 'value1'];
-        $file2 = (object) ['key' => 'value2', 'newKey' => 'newValue'];
+        $pathFile1Json = self::FIXTURESDIR . "file1.json";
+        $pathFile2Json = self::FIXTURESDIR . "file2.json";
 
-        $result = $differ->compare($file1, $file2, 'json');
+        $result = $differ->genDiff($pathFile1Json, $pathFile2Json, 'json');
 
         $this->assertJson($result);
         $decoded = json_decode($result, true);
         $this->assertIsArray($decoded);
         $this->assertArrayHasKey(0, $decoded);
-        $this->assertEquals('key', $decoded[0]['key']);
+        $this->assertEquals('follow', $decoded[0]['key']);
     }
 
     public function testCompareEmptyFiles(): void
@@ -194,19 +191,27 @@ EXPECTED;
         $emptyJson1 = $this->createEmptyFile('json');
         $emptyJson2 = $this->createEmptyFile('json');
 
-        $parser = new Parser();
-        $parsedEmptyJson1 = $parser->parse($emptyJson1);
-        $parsedEmptyJson2 = $parser->parse($emptyJson2);
-
         $differ = new Differ();
 
-        $actual = $differ->compare($parsedEmptyJson1, $parsedEmptyJson2);
-        $expected = "{\n\n}\n";
+        $actual = $differ->genDiff($emptyJson1, $emptyJson2);
+        $expected = "{\n\n}\n\n";
 
         $this->assertEquals($expected, $actual);
 
         unlink($emptyJson1);
         unlink($emptyJson2);
+    }
+
+    public function testFileReadError(): void
+    {
+        $nonExistentFile1 = '/tmp/nonexistent_' . uniqid() . '.json';
+        $pathFile2Json = self::FIXTURESDIR . "file2.json";
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Unable to read file: $nonExistentFile1");
+
+        $differ = new Differ();
+        $differ->genDiff($nonExistentFile1, $pathFile2Json);
     }
 
     private function createEmptyFile(string $extension): string

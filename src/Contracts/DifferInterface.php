@@ -4,5 +4,5 @@ namespace Gendiff\Contracts;
 
 interface DifferInterface
 {
-    public function compare(object $File1, object $File2): string|false;
+    public function genDiff(string $pathFile1, string $pathFile2): string|false;
 }

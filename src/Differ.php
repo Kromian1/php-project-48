@@ -2,18 +2,32 @@
 
 namespace Gendiff;
 
+use Gendiff\Parser;
+use Gendiff\Formatter;
 use Gendiff\Contracts\DifferInterface;
 use Illuminate\Support\Collection;
 
-use function Gendiff\Formatters\getFormatter;
-
 class Differ implements DifferInterface
 {
-    public function compare(object $file1, object $file2, string $format = 'stylish'): string|false
+    public function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish'): string|false
     {
-        $comparedFiles = $this->buildDiff($file1, $file2);
-        $formatter = getFormatter($format);
-        return $formatter->format($comparedFiles);
+        if (!file_exists($pathFile1)) {
+            throw new \RuntimeException("Unable to read file: $pathFile1");
+        }
+        if (!file_exists($pathFile2)) {
+            throw new \RuntimeException("Unable to read file: $pathFile2");
+        }
+
+        $parser = new Parser();
+
+        $dataFile1 = $parser->parse($pathFile1);
+        $dataFile2 = $parser->parse($pathFile2);
+
+        $comparedFiles = $this->buildDiff($dataFile1, $dataFile2);
+        $formatterFactory = new Formatter();
+        $formatter = $formatterFactory->getFormatter($format);
+
+        return $formatter->format($comparedFiles) . PHP_EOL;
     }
 
     public function buildDiff(object $file1, object $file2): array

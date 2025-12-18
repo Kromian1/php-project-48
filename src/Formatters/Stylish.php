@@ -12,14 +12,13 @@ class Stylish implements FormatterInterface
             fn ($node) => $this->formatNode($node, 1),
             $comparedFiles
         );
-
-        return "{\n" . implode("\n", $lines) . "\n}\n";
+        $lineStr = implode("\n", $lines);
+        return "{\n{$lineStr}\n}\n";
     }
 
     private function formatNode(array $node, int $depth = 1): string
     {
         $type = $node['type'];
-        $key = $node['key'];
 
         return match ($type) {
             'nested' => $this->formatNested($node, $depth),

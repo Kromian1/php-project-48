@@ -8,7 +8,7 @@
             "Differ\\Differ\\": "src/"
         },
         "files": [
-            "src/Formatters/Formatter.php",
+            "src/Formatter.php",
             "src/functions.php"
         ]
     },

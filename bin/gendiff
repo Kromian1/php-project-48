@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-
-use Gendiff\Parser;
 use Gendiff\Differ;
 
 $autoloadPath1 = __DIR__ . '/../vendor/autoload.php';
@@ -35,26 +33,10 @@ DOC;
 $options = ['version' => 'gendiff 1.0.0'];
 $result = Docopt::handle($doc, $options);
 
-if (isset($result['<firstFile>']) && isset($result['<secondFile>'])) {
-  $pathFile1 = $result['<firstFile>'];
-  $pathFile2 = $result['<secondFile>'];
-  $format = $result['--format'];
-}
-
-if (!file_exists($pathFile1)) {
-  fwrite(STDERR, "$pathFile1 is not found. Please check path or file.\n");
-  exit(1);
-}
-if (!file_exists($pathFile2)) {
-  fwrite(STDERR, "$pathFile2 is not found. Please check path or file.\n");
-  exit(1);
-}
-
-$parser = new Parser();
-$dataFile1 = $parser->parse($pathFile1);
-$dataFile2 = $parser->parse($pathFile2);
+$pathFile1 = $result['<firstFile>'];
+$pathFile2 = $result['<secondFile>'];
+$format = $result['--format'];
 
 $differ = new Differ();
 
-echo $differ->compare($dataFile1, $dataFile2, $format);
-echo PHP_EOL;
+echo $differ->genDiff($pathFile1, $pathFile2, $format);
