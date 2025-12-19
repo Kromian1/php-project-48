@@ -1,0 +1,12 @@
+[
+  {
+    "key": "follow",
+    "type": "added",
+    "value": false
+  },
+  {
+    "key": "host", 
+    "type": "unchanged",
+    "value": "hexlet.io"
+  }
+]

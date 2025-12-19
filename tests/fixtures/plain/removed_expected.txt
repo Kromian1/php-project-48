@@ -1,0 +1,1 @@
+Property 'setting2' was removed

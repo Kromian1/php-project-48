@@ -10,6 +10,7 @@ use function Differ\Differ\genDiff;
 class FunctionsTest extends TestCase
 {
     private const string FIXTURESDIR = __DIR__ . '/fixtures/';
+    private const string EXPECTEDDIR = __DIR__ . '/fixtures/expected/';
 
     #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedStylish, string $expectedPlain): void
@@ -22,33 +23,15 @@ class FunctionsTest extends TestCase
 
         $this->assertJson($actualJson);
         $this->assertIsArray($decoded);
-        $this->assertEquals($expectedStylish, $actualStylish);
-        $this->assertEquals($expectedPlain, $actualPlain);
+        $this->assertStringEqualsFile($expectedStylish, $actualStylish);
+        $this->assertStringEqualsFile($expectedPlain, $actualPlain);
         $this->assertEquals($actualDefault, $actualStylish);
     }
 
     public static function mainFlowProvider(): array
     {
-        $expectedStylish = <<<EXPECTED
-{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}
-
-
-EXPECTED;
-
-        $expectedPlain = <<<PLAIN
-    Property 'follow' was removed
-    Property 'proxy' was removed
-    Property 'timeout' was updated. From 50 to 20
-    Property 'verbose' was added with value: true
-    
-    PLAIN;
+        $expectedStylish = self::EXPECTEDDIR . "file1_file2_stylish.txt";
+        $expectedPlain = self::EXPECTEDDIR . "file1_file2_plain.txt";
 
         return [
             'Paths to files JSON' => [

@@ -1,0 +1,27 @@
+[
+  {
+    "key": "string",
+    "type": "added",
+    "value": "text"
+  },
+  {
+    "key": "number",
+    "type": "added",
+    "value": 42
+  },
+  {
+    "key": "bool",
+    "type": "added",
+    "value": true
+  },
+  {
+    "key": "null",
+    "type": "added",
+    "value": null
+  },
+  {
+    "key": "complex",
+    "type": "added",
+    "value": {"nested": "value"}
+  }
+]

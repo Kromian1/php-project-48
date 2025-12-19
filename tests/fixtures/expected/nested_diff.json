@@ -1,0 +1,14 @@
+[
+  {
+    "key": "nested",
+    "type": "nested",
+    "children": [
+      {
+        "key": "inner",
+        "type": "changed",
+        "oldValue": "old",
+        "newValue": "new"
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+Property 'string' was added with value: 'text'
+Property 'number' was added with value: 42
+Property 'bool' was added with value: true
+Property 'null' was added with value: null
+Property 'complex' was added with value: [complex value]

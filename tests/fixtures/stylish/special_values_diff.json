@@ -1,0 +1,22 @@
+[
+  {
+    "key": "null_val",
+    "type": "added",
+    "value": null
+  },
+  {
+    "key": "empty_str",
+    "type": "added",
+    "value": ""
+  },
+  {
+    "key": "bool_true",
+    "type": "added",
+    "value": true
+  },
+  {
+    "key": "bool_false",
+    "type": "added",
+    "value": false
+  }
+]

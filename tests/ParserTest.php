@@ -9,6 +9,8 @@ use Gendiff\Parser;
 class ParserTest extends TestCase
 {
     private const FIXTURESDIR = __DIR__ . '/fixtures/';
+    private const EXPECTEDDIR = __DIR__ . '/fixtures/expected/';
+
     #[DataProvider('mainFlowProvider')]
     public function testMainFlow(string $pathFile, object $expected): void
     {
@@ -52,18 +54,8 @@ class ParserTest extends TestCase
 
     public static function mainFlowProvider(): array
     {
-        $expectedParseFile1 = new \stdClass();
-        $expectedParseFile1->host = 'hexlet.io';
-        $expectedParseFile1->timeout = 50;
-        $expectedParseFile1->proxy = '123.234.53.22';
-        $expectedParseFile1->follow = false;
-
-        $expectedParseFile2 = new \stdClass();
-        $expectedParseFile2->timeout = 20;
-        $expectedParseFile2->verbose = true;
-        $expectedParseFile2->host = 'hexlet.io';
-
-
+        $expectedParseFile1 = json_decode(file_get_contents(self::EXPECTEDDIR . "parsed_file1.json"), false);
+        $expectedParseFile2 = json_decode(file_get_contents(self::EXPECTEDDIR . "parsed_file2.json"), false);
 
         return [
             'Parse file1.json' => [self::FIXTURESDIR . "file1.json", $expectedParseFile1],

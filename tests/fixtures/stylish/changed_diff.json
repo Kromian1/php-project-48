@@ -1,0 +1,8 @@
+[
+  {
+    "key": "test",
+    "type": "changed",
+    "oldValue": "old",
+    "newValue": "new"
+  }
+]
