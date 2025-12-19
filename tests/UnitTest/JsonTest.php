@@ -14,12 +14,12 @@ class JsonTest extends TestCase
     public function testJsonFormat(string $diffFile): void
     {
         $formatter = new Json();
-        
+
         $diff = json_decode(file_get_contents($diffFile), true);
         $result = $formatter->format($diff);
-        
+
         $decoded = json_decode($result, true);
-        
+
         $this->assertJson($result);
         $this->assertEquals($diff, $decoded);
     }

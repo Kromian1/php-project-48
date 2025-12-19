@@ -21,7 +21,7 @@ class StylishTest extends TestCase
     {
         $diff = json_decode(file_get_contents($diffFile), true);
         $expected = file_get_contents($expectedFile);
-        
+
         $result = $this->formatter->format($diff);
         $this->assertEquals($expected, $result);
     }

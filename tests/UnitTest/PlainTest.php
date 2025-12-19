@@ -9,15 +9,15 @@ use Gendiff\Formatters\Plain;
 class PlainTest extends TestCase
 {
     private const string DIR = __DIR__ . '/../fixtures/plain/';
-    
+
     #[DataProvider('plainFormatProvider')]
     public function testPlainFormat(string $diffFile, string $expectedFile): void
     {
         $formatter = new Plain();
-        
+
         $diff = json_decode(file_get_contents($diffFile), true);
         $expected = file_get_contents($expectedFile);
-        
+
         $result = $formatter->format($diff);
         $this->assertEquals($expected, $result);
     }
