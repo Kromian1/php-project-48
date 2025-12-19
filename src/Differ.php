@@ -60,13 +60,11 @@ class Differ implements DifferInterface
             ];
         }
 
-        if ($hasIn2) {
-            return [
-                'key' => $key,
-                'type' => 'added',
-                'value' => $arrayFile2[$key]
-            ];
-        }
+        return [
+            'key' => $key,
+            'type' => 'added',
+            'value' => $arrayFile2[$key]
+        ];
     }
 
     private function handleCommonKey(string $key, mixed $value1, mixed $value2): array
