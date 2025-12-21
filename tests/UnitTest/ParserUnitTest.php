@@ -13,7 +13,7 @@ class ParserUnitTest extends TestCase
     private const EXPECTEDDIR = __DIR__ . '/../fixtures/expected/';
 
     public function testEmptyExtension(): void
-{
+    {
         $parser = new Parser();
         $differ = new Differ();
 

@@ -20,7 +20,7 @@ class FunctionsTest extends TestCase
     }
 
     public static function mainFlowProvider(): array
-{
+    {
         $pathFile1Json = self::FIXTURESDIR . "file1.json";
         $pathFile2Json = self::FIXTURESDIR . "file2.json";
         $pathFile1Yml = self::FIXTURESDIR . "file1.yml";
@@ -33,7 +33,6 @@ class FunctionsTest extends TestCase
                 $pathFile1Json,
                 $pathFile2Json,
                 $expectedDefault
-                
             ],
             'YAML files' => [
                 $pathFile1Yml,
