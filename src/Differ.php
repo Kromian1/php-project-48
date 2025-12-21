@@ -11,19 +11,15 @@ class Differ implements DifferInterface
 {
     public function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish'): string|false
     {
-        if (!file_exists($pathFile1)) {
-            throw new \RuntimeException("Unable to read file: $pathFile1");
-        }
-        if (!file_exists($pathFile2)) {
-            throw new \RuntimeException("Unable to read file: $pathFile2");
-        }
-
         $parser = new Parser();
 
-        $dataFile1 = $parser->parse($pathFile1);
-        $dataFile2 = $parser->parse($pathFile2);
+        $dataFile1 = $this->getFileData($pathFile1);
+        $dataFile2 = $this->getFileData($pathFile2);
 
-        $comparedFiles = $this->buildDiff($dataFile1, $dataFile2);
+        $parsedFile1 = $parser->parse($dataFile1, $pathFile1);
+        $parsedFile2 = $parser->parse($dataFile2, $pathFile2);
+
+        $comparedFiles = $this->buildDiff($parsedFile1, $parsedFile2);
         $formatterFactory = new Formatter();
         $formatter = $formatterFactory->getFormatter($format);
 
@@ -90,6 +86,21 @@ class Differ implements DifferInterface
             'type' => 'changed',
             'oldValue' => $value1,
             'newValue' => $value2
+        ];
+    }
+
+    public function getFileData(string $pathFile): array
+    {
+        if (!file_exists($pathFile)) {
+            throw new \RuntimeException("Unable to read file: $pathFile");
+        }
+
+        $content = file_get_contents($pathFile);
+        $extension = pathinfo($pathFile, PATHINFO_EXTENSION);
+
+        return [
+            'content' => $content,
+            'extension' => $extension
         ];
     }
 }

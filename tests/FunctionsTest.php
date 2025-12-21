@@ -13,32 +13,32 @@ class FunctionsTest extends TestCase
     private const string EXPECTEDDIR = __DIR__ . '/fixtures/expected/';
 
     #[DataProvider('mainFlowProvider')]
-    public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedStylish, string $expectedPlain): void
+    public function testMainFlow(string $pathFile1, string $pathFile2, string $expectedDefault): void
     {
-        $actualStylish = genDiff($pathFile1, $pathFile2, 'stylish');
-        $actualPlain = genDiff($pathFile1, $pathFile2, 'plain');
-        $actualJson = genDiff($pathFile1, $pathFile2, 'json');
         $actualDefault = genDiff($pathFile1, $pathFile2);
-        $decoded = json_decode($actualJson, true);
-
-        $this->assertJson($actualJson);
-        $this->assertIsArray($decoded);
-        $this->assertStringEqualsFile($expectedStylish, $actualStylish);
-        $this->assertStringEqualsFile($expectedPlain, $actualPlain);
-        $this->assertEquals($actualDefault, $actualStylish);
+        $this->assertStringEqualsFile($expectedDefault, $actualDefault);
     }
 
     public static function mainFlowProvider(): array
-    {
-        $expectedStylish = self::EXPECTEDDIR . "file1_file2_stylish.txt";
-        $expectedPlain = self::EXPECTEDDIR . "file1_file2_plain.txt";
+{
+        $pathFile1Json = self::FIXTURESDIR . "file1.json";
+        $pathFile2Json = self::FIXTURESDIR . "file2.json";
+        $pathFile1Yml = self::FIXTURESDIR . "file1.yml";
+        $pathFile2Yaml = self::FIXTURESDIR . "file2.yaml";
+
+        $expectedDefault = self::EXPECTEDDIR . "file1_file2_stylish.txt";
 
         return [
-            'Paths to files JSON' => [
-                self::FIXTURESDIR . "file1.json",
-                self::FIXTURESDIR . "file2.json",
-                $expectedStylish,
-                $expectedPlain
+            'JSON files' => [
+                $pathFile1Json,
+                $pathFile2Json,
+                $expectedDefault
+                
+            ],
+            'YAML files' => [
+                $pathFile1Yml,
+                $pathFile2Yaml,
+                $expectedDefault
             ]
         ];
     }

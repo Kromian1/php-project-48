@@ -63,7 +63,7 @@ class Stylish implements FormatterInterface
             'value' => $node['newValue']
         ], $depth, 'added');
 
-        return $oldLine . "\n" . $newLine;
+        return "{$oldLine}\n{$newLine}";
     }
 
     private function formatNested(array $node, int $depth): string
@@ -116,6 +116,7 @@ class Stylish implements FormatterInterface
         }
 
         $outerIndent = $this->indent($depth - 1, 2);
-        return "{\n" . implode("\n", $items) . "\n{$outerIndent}}";
+        $itemsStr = implode("\n", $items);
+        return "{\n{$itemsStr}\n{$outerIndent}}";
     }
 }

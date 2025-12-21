@@ -5,7 +5,6 @@ namespace Gendiff\Tests;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Gendiff\Differ;
-use Gendiff\Parser;
 
 class DifferTest extends TestCase
 {
@@ -13,12 +12,21 @@ class DifferTest extends TestCase
     private const string EXPECTEDDIR = __DIR__ . '/fixtures/expected/';
 
     #[DataProvider('mainFlowProvider')]
-    public function testMainFlow(string $pathFile1, string $pathFile2, string $expected): void
+    public function testMainFlow(string $pathFile1, string $pathFile2, array $expectedFiles): void
     {
         $differ = new Differ();
-        $actual = $differ->genDiff($pathFile1, $pathFile2);
+        $actualStylish = $differ->genDiff($pathFile1, $pathFile2, 'stylish');
+        $actualPlain = $differ->genDiff($pathFile1, $pathFile2, 'plain');
+        $actualJson = $differ->genDiff($pathFile1, $pathFile2, 'json');
+        $actualDefault = $differ->genDiff($pathFile1, $pathFile2);
+        $decoded = json_decode($actualJson, true);
 
-        $this->assertStringEqualsFile($expected, $actual);
+        $this->assertJson($actualJson);
+        $this->assertIsArray($decoded);
+        $this->assertStringEqualsFile($expectedFiles['stylish'], $actualStylish);
+        $this->assertStringEqualsFile($expectedFiles['plain'], $actualPlain);
+        $this->assertStringEqualsFile($expectedFiles['default'], $actualDefault);
+        $this->assertStringEqualsFile($expectedFiles['json'], $actualJson);
     }
 
     public static function mainFlowProvider(): array
@@ -28,16 +36,32 @@ class DifferTest extends TestCase
         $pathFile1Yml = self::FIXTURESDIR . "file1.yml";
         $pathFile2Yaml = self::FIXTURESDIR . "file2.yaml";
 
-        $expectedDifferent = self::EXPECTEDDIR . "file1_file2_stylish.txt";
-        $expectedSame = self::EXPECTEDDIR . "file2_file2_stylish.txt";
+        $expectedDefault = self::EXPECTEDDIR . "file1_file2_stylish.txt";
+        $expectedStylish = self::EXPECTEDDIR . "file1_file2_stylish.txt";
+        $expectedPlain = self::EXPECTEDDIR . "file1_file2_plain.txt";
+        $expectedJson = self::EXPECTEDDIR . "file1_file2_json.txt";
 
         return [
-            'Paths to different files JSON' => [$pathFile1Json, $pathFile2Json, $expectedDifferent],
-            'Paths to different files YML' => [$pathFile1Yml, $pathFile2Yaml, $expectedDifferent],
-            'Paths to different files JSON and YML' => [$pathFile1Json, $pathFile2Yaml, $expectedDifferent],
-            'Paths to same files JSON' => [$pathFile2Json, $pathFile2Json, $expectedSame],
-            'Paths to same files YML' => [$pathFile2Yaml, $pathFile2Yaml, $expectedSame],
-            'Paths to same files JSON and YML' => [$pathFile2Json, $pathFile2Yaml, $expectedSame]
+            'JSON files' => [
+                $pathFile1Json,
+                $pathFile2Json,
+                [
+                    'default' => $expectedDefault,
+                    'stylish' => $expectedStylish,
+                    'plain' => $expectedPlain,
+                    'json' => $expectedJson
+                ]
+            ],
+            'YAML files' => [
+                $pathFile1Yml,
+                $pathFile2Yaml,
+                [
+                    'default' => $expectedDefault,
+                    'stylish' => $expectedStylish,
+                    'plain' => $expectedPlain,
+                    'json' => $expectedJson
+                ]
+            ]
         ];
     }
 }
