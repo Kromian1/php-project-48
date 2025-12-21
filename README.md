@@ -16,6 +16,11 @@
 Поддерживаются как плоские, так и многоуровневые файлы.
 Программа написана на PHP.
 
+## Требования
+
+- PHP 8.3
+- Composer
+
 ##  Установка
 
 В качестве CLI-утилиты:
@@ -23,11 +28,6 @@
 - git clone https://github.com/Kromian1/php-project-48.git
 - cd php-project-48
 - make install
-
-## Требования
-
-- PHP 8.3
-- Composer
   
 ##  Запуск
 
